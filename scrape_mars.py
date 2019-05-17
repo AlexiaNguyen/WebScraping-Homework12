@@ -1,7 +1,17 @@
 from bs4 import BeautifulSoup 
 import os
 import requests
+from splinter import Browser
+import pandas as pd
+import time
 
+def init_browser():
+    executable_path = {'executable_path': 'chromedriver.exe'}
+    browser = Browser('chrome', **executable_path, headless=False)
+
+def mars_all():
+    browser = init_browser()
+    mars_data = {}
 
 url = 'https://mars.nasa.gov/news/'
 
@@ -16,9 +26,8 @@ paragraph = soup.find('div', class_="rollover_description").text
 print(paragraph)
 
 
-from splinter import Browser
-executable_path = {'executable_path': 'chromedriver.exe'}
-browser = Browser('chrome', **executable_path, headless=False)
+
+
 
 url = 'https://www.jpl.nasa.gov/spaceimages/?search=&category=Mars'
 browser.visit(url)
@@ -43,7 +52,7 @@ weather = result3.find('p').text
 
 print(weather)
 
-import pandas as pd
+
 
 url = 'https://space-facts.com/mars/'
 
@@ -60,8 +69,8 @@ html_facts
 df.to_html('html_facts.html')
 
 
-import time
-from splinter import Browser
+
+
 executable_path = {'executable_path': 'chromedriver.exe'}
 browser = Browser('chrome', **executable_path, headless=False)
 url = 'https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars'

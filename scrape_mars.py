@@ -46,8 +46,8 @@ def mars_all():
     df = facts[0]
     df.columns = ['Info', 'Data']
     html_facts = df.to_html()
-    # df.to_html('html_facts.html')
-    mars_data["facts"] = html_facts
+    mars_facts = df.to_html('html_facts.html')(index='False')
+    mars_data["mars_facts"] = mars_facts
 
 
     url = 'https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars'

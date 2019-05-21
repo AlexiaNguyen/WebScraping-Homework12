@@ -5,14 +5,15 @@ from splinter import Browser
 import pandas as pd
 import time
 
-def init_browser():
-    executable_path = {'executable_path': 'chromedriver.exe'}
-    browser = Browser('chrome', **executable_path, headless=False)
+# def init_browser():
+
 
 def mars_all():
-    browser = init_browser()
+    # browser = init_browser()
     mars_data = {}
-
+    executable_path = {'executable_path': 'chromedriver.exe'}
+    browser = Browser('chrome', **executable_path, headless=False)
+    print(browser)
     url = 'https://mars.nasa.gov/news/'
     page = requests.get(url)
     soup = BeautifulSoup(page.content, 'html.parser')
@@ -22,7 +23,7 @@ def mars_all():
     paragraph = soup.find('div', class_="rollover_description").text
     mars_data["paragraph"] = paragraph
 
-
+    print(browser)
     url = 'https://www.jpl.nasa.gov/spaceimages/?search=&category=Mars'
     browser.visit(url)
     time.sleep(5)
@@ -45,8 +46,7 @@ def mars_all():
     facts = pd.read_html(url)
     df = facts[0]
     df.columns = ['Info', 'Data']
-    html_facts = df.to_html()
-    mars_facts = df.to_html('html_facts.html')(index='False')
+    mars_facts = df.to_html(index=False)
     mars_data["mars_facts"] = mars_facts
 
 
